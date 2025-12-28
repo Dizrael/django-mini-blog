@@ -1,0 +1,4 @@
+asgiref==3.11.0
+Django==5.2.8
+ruff==0.14.10
+sqlparse==0.5.3
