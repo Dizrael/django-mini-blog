@@ -31,6 +31,12 @@ line-length = 120
 indent-width = 4
 target-version = "py312"
 
+[tool.ruff.lint]
+# Enable All rules.
+# We may not want all rules, but this is a good starting point for you to
+# see the full capabilities of ruff
+select = ['ALL']
+
 [tool.ruff.format]
 # Like Black, use double quotes for strings.
 quote-style = "double"
