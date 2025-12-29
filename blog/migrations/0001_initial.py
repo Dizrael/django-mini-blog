@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -54,8 +53,9 @@ class Migration(migrations.Migration):
                 "ordering": ["-publish"],
                 "indexes": [
                     models.Index(
-                        fields=["-publish"], name="blog_post_publish_bb7600_idx"
-                    )
+                        fields=["-publish"],
+                        name="blog_post_publish_bb7600_idx",
+                    ),
                 ],
             },
         ),
