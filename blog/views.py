@@ -13,10 +13,12 @@ from .forms import EmailPostForm, CommentForm
 
 class PostListView(ListView):
     """Альтернативное представление списка постов"""
+
     queryset = Post.published.all()
-    context_object_name = 'posts'
+    context_object_name = "posts"
     paginate_by = 3
-    template_name = 'blog/post/list.html'
+    template_name = "blog/post/list.html"
+
 
 def post_list(request: HttpRequest, tag_slug: str = None):
     all_posts = Post.published.all()
@@ -34,7 +36,7 @@ def post_list(request: HttpRequest, tag_slug: str = None):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, "blog/post/list.html", {"posts": posts, 'tag': tag})
+    return render(request, "blog/post/list.html", {"posts": posts, "tag": tag})
 
 
 def post_detail(request: HttpRequest, year: int, month: int, day: int, slug: str) -> HttpResponse:
@@ -51,8 +53,9 @@ def post_detail(request: HttpRequest, year: int, month: int, day: int, slug: str
     return render(
         request,
         "blog/post/detail.html",
-        {"post": post, 'comments': comments, 'form': form},
+        {"post": post, "comments": comments, "form": form},
     )
+
 
 def post_share(request: HttpRequest, post_id: int) -> HttpResponse:
     # извлекаем пост по id
@@ -67,17 +70,17 @@ def post_share(request: HttpRequest, post_id: int) -> HttpResponse:
             post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = f"{cd['name']} recommends you read {post.title}"
             message = f"Read {post.title} at {post_url}\n\n{cd['name']}'s ({cd['email']}) comments: {cd['comments']}"
-            to = cd['to']
+            to = cd["to"]
             if isinstance(to, str):
-                if ',' not in to:
+                if "," not in to:
                     to = [to]
                 else:
-                    to = [to_s.strip() for to_s in to.split(',')]
+                    to = [to_s.strip() for to_s in to.split(",")]
             send_mail(subject, message, settings.EMAIL_HOST_USER, to)
             sent = True
     else:
         form = EmailPostForm()
-    return render(request, "blog/post/share.html", {"post": post, "form": form, 'sent': sent})
+    return render(request, "blog/post/share.html", {"post": post, "form": form, "sent": sent})
 
 
 @require_POST
@@ -94,5 +97,5 @@ def post_comment(request: HttpRequest, post_id: int) -> HttpResponse:
     return render(
         request,
         "blog/post/comment.html",
-        {'post': post, 'form': form, 'comment': comment},
+        {"post": post, "form": form, "comment": comment},
     )
