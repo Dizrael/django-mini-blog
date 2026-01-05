@@ -1,5 +1,7 @@
 asgiref==3.11.0
 Django==5.2.8
 django-taggit==6.1.0
+Markdown==3.10
+nh3==0.3.2
 ruff==0.14.10
 sqlparse==0.5.3
