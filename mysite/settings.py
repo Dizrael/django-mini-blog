@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog.apps.BlogConfig",
+    "taggit",
 ]
 
 MIDDLEWARE = [
@@ -104,7 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+DATETIME_FORMAT = "%N %j, %Y, %H:%i:%s"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
@@ -125,8 +127,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Конфигурация сервера электронной почта
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "your_email"
-EMAIL_HOST_PASSWORD = "pass"
+EMAIL_HOST_USER = "pashamyl999@gmail.com"
+EMAIL_HOST_PASSWORD = "sqir vpis agfi cdrc"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

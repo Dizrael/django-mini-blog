@@ -1,10 +1,11 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 
 from .models import Post
 from .forms import EmailPostForm, CommentForm
@@ -17,8 +18,14 @@ class PostListView(ListView):
     paginate_by = 3
     template_name = 'blog/post/list.html'
 
-def post_list(request: HttpRequest):
+def post_list(request: HttpRequest, tag_slug: str = None):
     all_posts = Post.published.all()
+
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        all_posts = all_posts.filter(tags=tag)
+
     paginator = Paginator(all_posts, 3)
     page_num = request.GET.get("page", 1)
     try:
@@ -27,7 +34,7 @@ def post_list(request: HttpRequest):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, "blog/post/list.html", {"posts": posts})
+    return render(request, "blog/post/list.html", {"posts": posts, 'tag': tag})
 
 
 def post_detail(request: HttpRequest, year: int, month: int, day: int, slug: str) -> HttpResponse:
@@ -47,7 +54,7 @@ def post_detail(request: HttpRequest, year: int, month: int, day: int, slug: str
         {"post": post, 'comments': comments, 'form': form},
     )
 
-def post_share(request, post_id):
+def post_share(request: HttpRequest, post_id: int) -> HttpResponse:
     # извлекаем пост по id
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     sent = False

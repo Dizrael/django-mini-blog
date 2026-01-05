@@ -4,6 +4,7 @@ from django.db.models import (CharField, DateTimeField, ForeignKey, Index, Model
                               EmailField, BooleanField)
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -25,6 +26,7 @@ class Post(Model):
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
     status = CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
+    tags = TaggableManager()
 
     objects = models.Manager()
     published = PublishedManager()
