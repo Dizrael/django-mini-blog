@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("blog", "0002_alter_post_slug"),
     ]
@@ -40,11 +39,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "ordering": ["created"],
-                "indexes": [
-                    models.Index(
-                        fields=["created"], name="blog_commen_created_0e6ed4_idx"
-                    )
-                ],
+                "indexes": [models.Index(fields=["created"], name="blog_commen_created_0e6ed4_idx")],
             },
         ),
     ]
