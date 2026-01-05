@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import CharField, DateTimeField, ForeignKey, Index, Model, SlugField, TextChoices, TextField
+from django.db.models import (CharField, DateTimeField, ForeignKey, Index, Model, SlugField, TextChoices, TextField,
+                              EmailField, BooleanField)
 from django.urls import reverse
 from django.utils import timezone
 
@@ -42,3 +43,21 @@ class Post(Model):
             "blog:post_detail",
             args=[self.publish.year, self.publish.month, self.publish.day, self.slug]
         )
+
+class Comment(models.Model):
+    post = ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    name = CharField(max_length=80)
+    email = EmailField()
+    body = TextField()
+    created = DateTimeField(auto_now_add=True)
+    updated = DateTimeField(auto_now=True)
+    active = BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            Index(fields=['created'])
+        ]
+
+    def __str__(self):
+        return f'Comment by {self.name} on {self.post}'
