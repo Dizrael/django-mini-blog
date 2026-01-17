@@ -2,6 +2,7 @@ asgiref==3.11.0
 cfgv==3.5.0
 distlib==0.4.0
 Django==5.2.8
+django-environ==0.12.0
 django-taggit==6.1.0
 filelock==3.20.2
 identify==2.6.15
@@ -12,6 +13,7 @@ platformdirs==4.5.1
 pre_commit==4.5.1
 psycopg==3.3.2
 psycopg-binary==3.3.2
+python-dotenv==1.2.1
 PyYAML==6.0.3
 ruff==0.14.10
 sqlparse==0.5.3
