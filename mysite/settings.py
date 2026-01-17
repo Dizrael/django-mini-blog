@@ -18,11 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 environ.Env.read_env(BASE_DIR / '.env')
 
-env = environ.Env(
-    PG_DB=(str, 'blog'),
-    PG_USER=(str, 'blog'),
-    PG_PASS=(str, '')
-)
+env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
